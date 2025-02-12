@@ -1,0 +1,3 @@
+{% for sectionod in sectionsod %}
+    <a href="{% url 'od_section_detail_view' sectionod.id %}" class="nav-link">{{ sectionod.name }}</a>
+{% endfor %}

@@ -1,0 +1,35 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block content %}
+
+<head>
+    <title>{{ section.name }}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'ospo_doc/styles.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="designer-header">{{ section.name }}</h1>
+        <div class="filter-buttons text-center">
+            <form method="get" action=".">
+                <button type="submit" name="year" value="" class="btn btn-custom {% if not selected_year %}active{% endif %}">All</button>
+                {% for year in years %}
+                    <button type="submit" name="year" value="{{ year }}" class="btn btn-custom {% if year == selected_year %}active{% endif %}">{{ year }}</button>
+                {% endfor %}
+            </form>
+        </div>
+        <ul>
+            {% for pdf in pdfs %}
+                <li class="styled-list-item">
+                    <a href="{{ pdf.file.url }}" class="pdf-link">{{ pdf.title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+       
+    </div>
+</body>
+{% endblock %}

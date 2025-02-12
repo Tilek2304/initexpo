@@ -1,0 +1,15 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+{% block content %}
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'ospo_doc/styles.css' %}">
+</head>
+<h1>Documents from {{ year }}</h1>
+<ul class="styled-list">
+    {% for pdfdocument in pdfdocuments %}
+        <li class="styled-list-item">
+            <a href="{{ pdfdocument.file.url }}">{{ pdfdocument.title }}</a>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

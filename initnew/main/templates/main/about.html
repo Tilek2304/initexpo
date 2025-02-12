@@ -1,0 +1,14 @@
+{% extends 'main/layout.html' %}
+
+{% block content %}
+<div class="about-us">
+    <h2>О нас</h2>
+    <div class="about-content">
+        {% if about.image %}
+        <img src="{{ about.image.url }}" alt="{{ about.title }}" class="about-image">
+        {% else %}
+        <div>Отладка: изображение отсутствует</div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

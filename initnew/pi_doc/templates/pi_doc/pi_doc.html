@@ -1,0 +1,18 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block content %}
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'pi_doc/styles.css' %}">
+</head>
+<h1>Welcome to Pi Doc</h1>
+<h2>Sections</h2>
+<ul class="styled-list">
+    {% for section in sections %}
+        <li class="styled-list-item"><a href="{% url 'section_detail_view' section.id %}">{{ section.name }}</a></li>
+    {% endfor %}
+</ul>
+<div class="button-container">
+    <a href="{% url 'pdf_upload_view' %}" class="button styled-button">Upload PDF</a>
+</div>
+{% endblock %}

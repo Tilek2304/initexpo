@@ -1,0 +1,365 @@
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+.container {
+    margin-top: 20px;
+}
+
+.jumbotron {
+    background-color: #f8f9fa;
+    padding: 2rem 1rem;
+}
+
+.about-us {
+    margin-top: 40px;
+}
+
+.about-content {
+    display: flex;
+    align-items: center;
+}
+
+.about-image {
+    max-width: 200px;
+    margin-right: 20px;
+}
+
+.about-text {
+    flex: 1;
+}
+
+.btn-secondary {
+    background-color: #e76060;
+    border-color: #c96767;
+}
+
+.btn-secondary:hover {
+    background-color: #db6c6c;
+    border-color: #d16262;
+}
+
+.card {
+    margin-bottom: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card img {
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 15px 15px 0 0;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 1rem;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+/* Стили для страницы "Контакты" */
+.contacts {
+    margin-top: 40px;
+}
+
+.contacts .card {
+    margin-bottom: 20px;
+}
+
+/* Стили для отображения маленьких фото в виде списка */
+.teacher-card {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.teacher-card img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.teacher-card .teacher-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.teacher-card .teacher-info h5,
+.teacher-card .teacher-info p {
+    margin: 0;
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+.teacher-card .teacher-info h5 {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.teacher-card .btn {
+    margin-left: 10px;
+}
+
+/* Стили для пагинации */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination .step-links {
+    display: flex;
+    gap: 10px;
+}
+
+.pagination .step-links a,
+.pagination .step-links span {
+    padding: 5px 10px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #007bff;
+}
+
+.pagination .step-links a:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.pagination .step-links .current {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Стили для отображения преподавателей в одной линии с горизонтальными блоками */
+.teacher-card {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.teacher-photo {
+    margin-right: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.teacher-info {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.teacher-info > div {
+    flex: 1 1 100px;
+}
+
+.teacher-info h5,
+.teacher-info p {
+    margin: 0;
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+.teacher-info h5 {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.teacher-detail {
+    margin-left: 10px;
+}
+
+/* Стили для кнопок сортировки */
+.sort-options {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.sort-options .btn {
+    padding: 5px 10px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #007bff;
+}
+
+.sort-options .btn:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Стили для таблицы */
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+    border-collapse: collapse;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.table th,
+.table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table tbody + tbody {
+    border-top: 2px solid #dee2e6;
+}
+
+.table .table {
+    background-color: #fff;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Стили для кнопок сортировки */
+.sort-btn {
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1px solid #007bff;
+    border-radius: 15px;
+    text-decoration: none;
+    color: #007bff;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.sort-btn:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn {
+    border-radius: 15px;
+}
+
+.styled-list-item {
+    list-style-type: none;
+    margin: 10px 0;
+}
+
+.pdf-link {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.pdf-link:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
+
+.section-header {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 15px;
+    padding: 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+/* Стили для описания секций и PDF-документов */
+.section-description {
+    font-size: 1rem;
+    color: #6c757d;
+    margin-top: 10px;
+}
+
+.pdf-description {
+    font-size: 0.875rem;
+    color: #6c757d;
+    margin-top: 5px;
+}
+
+/* Стили для галереи наград */
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    column-count: 4
+    column-gap: 2px; /* Уменьшите расстояние между колонками */
+}
+
+
+.gallery-item {
+    flex: 1 1 calc(25% - 10px); /* 4 фото в строке */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    background-color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+.gallery-image-wrapper {
+    position: relative;
+    padding-top: 75%; /* 4:3 Aspect Ratio */
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+.gallery-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover .gallery-image {
+    transform: scale(1.05);
+}
+
+.gallery-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #333;
+}
+
+.gallery-description {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 5px;
+}

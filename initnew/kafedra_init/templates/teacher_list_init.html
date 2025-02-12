@@ -1,0 +1,30 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="{% static 'kafedra_init/css/styles_init.css' %}">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="{% static 'ckeditor/ckeditor.js' %}"></script>
+
+<div class="container mt-4">
+    <h1>Список преподавателей</h1>
+    <div class="row">
+        {% for teacher in teachers %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">{{ teacher.first_name }} {{ teacher.last_name }}</h5>
+                    <p class="card-text">{{ teacher.bio|safe }}</p>
+                    <a href="{% url 'teacher_detail' teacher.id %}" class="btn btn-primary">Подробнее</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <a href="{% url 'contacts' %}" class="btn btn-secondary">Контакты</a>
+    <a href="{% url 'about' %}" class="btn btn-secondary">О кафедре</a>
+</div>
+{% endblock %}

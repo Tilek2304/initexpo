@@ -1,0 +1,835 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    {% block title %}
+    <title>Моя страница</title>
+    {% endblock %}
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+      /* Общие стили */
+      html, body {
+          height: 100%;
+          margin: 0;
+          font-family: 'Arial', sans-serif;
+      }
+
+      .container-fluid {
+          display: flex;
+          min-height: 100vh;
+      }
+
+      /* Левая панель (фиксированная) */
+      aside {
+        position: fixed;
+        top: 0;
+        left:25px;
+        width: 80px; /* Исходная ширина */
+        height: 100%;
+        background-color: #f8f9fa;
+        padding: 20px 0px; /* Уменьшение отступов */
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        z-index: 100;
+        transition: width 0.3s ease; /* Плавная анимация изменения ширины */
+        border-top-right-radius: 10px; /* Закругление углов */
+        border-bottom-right-radius: 10px; /* Закругление углов */
+        border-top-left-radius: 10px; /* Закругление углов */
+        border-bottom-left-radius: 10px; /* Закругление углов */
+      }
+
+      aside.expanded {
+        width: 800px; /* Ширина при открытии */
+      }
+
+      .social-icons {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column; /* Вертикальное расположение до открытия */
+        gap: 20px;
+      }
+
+      aside.expanded .social-icons {
+        flex-direction: row; /* Горизонтальное расположение после открытия */
+      }
+
+      .social-icons a {
+        font-size: 24px; /* Увеличение размера иконок */
+        color: #812929;
+        transition: color 0.3s;
+      }
+
+      .social-icons a:hover {
+        color: #007bff;
+      }
+
+      .social-icons a,
+       aside .menu-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #812929;
+        font-size: 18px;
+        text-decoration: none;
+        margin: 10px 0;
+        transition: color 0.3s;
+      }
+
+      .social-icons a:hover,
+      aside .menu-item:hover {
+        color: #007bff;
+      }
+
+      .menu-item span {
+        display: none;
+        white-space: nowrap;
+      }
+
+      aside.expanded .menu-item span {
+        display: inline-block;
+      }
+
+      /* Стили кнопки переключения меню */
+.menu-toggle {
+    position: relative;
+    width: 45px;
+    height: 45px;
+    background-color: #fff;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, transform 0.3s;
+    top: 0px; 
+    right: 0px;
+}
+
+.menu-toggle:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.1);
+}
+
+/* Значок в кнопке */
+.menu-toggle i {
+    font-size: 18px;
+    color: #333;
+    transition: transform 0.3s;
+}
+
+.menu-toggle.expanded i {
+    transform: rotate(90deg);
+}
+
+/* Метка "Меню" */
+.menu-label {
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-top: 5px;
+    text-align: center;
+}
+
+aside.expanded .menu-label {
+    display: none;
+}
+
+      main {
+        margin-left: 80px; /* Начальное смещение для правой части */
+        padding: 20px;
+        flex-grow: 1;
+        transition: margin-left 0.3s ease;
+        z-index: 1; /* Убедитесь, что контент выше фона */
+        padding-top: 170px; /* Увеличенный отступ сверху для основного контента */
+      }
+
+      aside.expanded ~ main {
+        margin-left: 240px; /* Смещение для правой части при открытии меню */
+      }
+
+      .banner, .slider, .about-us, .photo-gallery {
+        z-index: 1; /* Убедитесь, что секции выше фона */
+      }
+
+      .logo-container {
+        display: flex;
+        align-items: center;
+        padding-left: 30px;
+        padding-top: 30px;
+        margin-bottom: 50px; /* Увеличение расстояния до 30px */
+      }
+
+      aside img {
+        display: none;
+        width:80px;
+      }
+
+      aside.expanded img {
+        display: block;
+      }
+
+      .logo-text {
+        display: none;
+        font-size: 18px;
+        font-weight: bold;
+        color: #812929;
+        margin-left: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-left: 2px solid #812929;
+        padding-left: 10px;
+      }
+
+      aside.expanded .logo-text {
+        display: block;
+      }
+
+      .menu-items {
+        display: none;
+        padding-left: 15px; /* Передвинуть на 25px влево */
+        padding-right: 15px; /* Добавить отступ справа в 25px */
+        
+        grid-template-columns: 1fr 1fr 1fr; /* Две колонки */
+        gap: 10px;
+      }
+
+      aside.expanded .menu-items {
+        display: grid;
+      }
+
+      .menu-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #812929;
+        font-size: 18px;
+        text-decoration: none;
+        margin: 10px 0;
+        transition: color 0.3s, background-color 0.3s, transform 0.3s;
+        padding: 10px 15px;
+        border-radius: 10px; /* Закругленные углы */
+        background-color: #f0f0f0; /* Светлый фон */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Тень */
+      }
+
+      .menu-item:hover {
+        color: #007bff;
+        background-color: #e0e0e0;
+        transform: translateY(-2px); /* Легкий подъем при наведении */
+      }
+
+      .menu-item i {
+        font-size: 20px;
+      }
+
+      .menu-item span {
+        display: none;
+        white-space: nowrap;
+      }
+
+      aside.expanded .menu-item span {
+        display: inline-block;
+      }
+
+      .menu-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      /* Общий стиль заголовка */
+      .header {
+          background-color: rgb(255 255 255 / 49%);
+          padding: 10px 30px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          position: fixed;
+          width: 100%;
+          z-index: 10;
+          border-top-right-radius: 10px;
+          border-bottom-right-radius: 10px;
+          border-top-left-radius: 10px;
+          border-bottom-left-radius: 10px;
+      }
+      
+      .header-container {
+        display: flex;
+        justify-content: space-between; /* Логотип слева, меню справа */
+        align-items: center; /* Вертикальное выравнивание */
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-left: 10px;
+        margin-bottom: 1px; /* Увеличение расстояния до 30px */
+      }
+      
+      /* Логотип */
+      .logo img {
+          height: 120px;
+          margin-bottom: 10px;
+          transition: transform 0.3s;
+      }
+      
+      .logo img:hover {
+          transform: scale(1.1);
+      }
+      
+      
+      /* Навигация */
+      .nav {
+          display: flex;
+          gap: 20px; /* Расстояние между кнопками */
+          justify-content: center;
+          align-items: center;
+      }
+      
+      /* Каждая кнопка меню */
+      .menu-button {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #333333; /* Тёмный текст */
+          background-color:rgb(255, 255, 255); /* Белый фон */
+          font-size: 16px;
+          text-decoration: none;
+          padding: 12px 24px;
+          border: 2px solid #e0e0e0; /* Тонкая серая рамка */
+          border-radius: 10px; /* Закругленные края */
+          transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s, color 0.3s;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          position: relative;
+          z-index: 20; /* Увеличение z-index для подменю */
+      }
+      
+      .menu-button i {
+          margin-right: 8px; /* Отступ для иконки */
+          font-size: 18px;
+      }
+      
+      .menu-button:hover {
+          background-color: #ff4d4d; /* Красное подсвечивание */
+          color: #ffffff; /* Белый текст при наведении */
+          transform: translateY(-2px);
+          box-shadow: 0 4px 10px rgba(255, 77, 77, 0.6); /* Красная тень */
+      }
+
+      /* Подменю */
+      .submenu {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          background-color: #ffffff;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          border-radius: 10px;
+          overflow: hidden;
+          z-index: 999; /* Увеличение z-index для подменю */
+      }
+
+      .menu-button:hover .submenu {
+          display: block;
+      }
+
+      .submenu a {
+          display: block;
+          padding: 10px 20px;
+          color: #333333;
+          text-decoration: none;
+          transition: background-color 0.3s, color 0.3s;
+      }
+
+      .submenu a:hover {
+          background-color: #ff4d4d;
+          color: #ffffff;
+      }
+      
+      /* Адаптивность */
+      @media (max-width: 1024px) {
+          .logo img {
+              height: 80px;
+          }
+      }
+
+      @media (max-width: 768px) {
+          .nav {
+              flex-direction: column;
+              gap: 15px;
+          }
+      
+          .menu-button {
+              width: 100%; /* Растянуть на всю ширину */
+              justify-content: center; /* Текст выравнивается по центру */
+              padding: 12px 20px;
+          }
+
+          .logo img {
+              height: 60px;
+          }
+
+          .social-icons {
+              display: none; /* Скрыть социальные иконки */
+          }
+
+          .menu-items {
+              grid-template-columns: 1fr; /* Одна колонка */
+          }
+      }
+
+      @media (max-width: 1000px) {
+          aside {
+              display: none; /* Скрыть меню */
+          }
+      }
+
+      @media (max-width: 480px) {
+          .header-container {
+              flex-direction: column;
+              gap: 10px;
+          }
+
+          .menu-button {
+              padding: 10px 15px;
+              font-size: 14px;
+          }
+
+          .logo img {
+              height: 50px;
+          }
+
+          .menu-items {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+          }
+      }
+      
+      .banner {
+        background-color: rgba(255, 255, 255, .8);
+        border-radius: .25em;
+        box-shadow: 0 0 .25em rgba(0, 0, 0, .25);
+        box-sizing: border-box;
+        left: 50%;
+        padding: 10vmin;
+        position: fixed;
+        text-align: center;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .bg {
+        animation: slide 3s ease-in-out infinite alternate;
+        background-image: linear-gradient(-60deg, #6c3 50%, #09f 50%);
+        bottom: 0;
+        left: -50%;
+        opacity: .5;
+        position: fixed;
+        right: -50%;
+        top: 0;
+        z-index: -1;
+      }
+
+      .bg2 {
+        animation-direction: alternate-reverse;
+        animation-duration: 4s;
+      }
+
+      .bg3 {
+        animation-duration: 5s;
+      }
+
+      @keyframes slide {
+        0% {
+          transform: translateX(-25%);
+        }
+        100% {
+          transform: translateX(25%);
+        }
+      }
+      @media (max-width: 1000px) {
+        .header {
+            display: none; /* Скрывает весь заголовок */
+        }
+    
+        /* Или, чтобы скрыть только меню: */
+        .nav {
+            display: none; /* Скрывает только меню */
+        }
+
+        .pos-f-t {
+            display: block; /* Показать навигационную панель */
+        }
+      }
+
+      @media (min-width: 1001px) {
+        .pos-f-t {
+            display: none; /* Скрыть навигационную панель */
+        }
+      }
+
+
+      /* Стили для кнопки меню (burger icon) */
+      .fa-bars {
+          font-size: 30px;
+          color: rgb(45 81 91 / 61%);
+          transition: transform 0.3s ease, color 0.3s ease;
+      }
+      
+      /* Эффект при наведении на иконку */
+      .fa-bars:hover {
+          color: rgb(219, 213, 213);
+          transform: scale(1.1);
+      }
+      
+      /* Стилизация для коллапсируемого контента */
+      #navbarToggleExternalContent {
+          background-color: rgba(255, 255, 255, 0.15); /* Прозрачный фон */
+          border-radius: 16px; /* Более круглые углы */
+          box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+          padding: 20px 0;
+          transition: all 0.3s ease-in-out;
+          z-index: 1051; /* Ставим на передний план */
+          position: relative; /* Относительное позиционирование для правильного отображения z-index */
+      }
+      
+      #navbarToggleExternalContent .nav-item {
+          padding: 15px 20px;
+          text-transform: uppercase;
+          font-size: 16px;
+          display: flex;
+          align-items: center;
+          transition: background-color 0.3s ease;
+      }
+      
+      #navbarToggleExternalContent .nav-item:hover {
+          background-color: rgba(255, 255, 255, 0.25); /* Плавное изменение фона при наведении */
+          border-radius: 12px;
+      }
+      
+      #navbarToggleExternalContent .nav-item i {
+          font-size: 18px;
+          margin-right: 10px;
+          color: #fff;
+      }
+      
+      #navbarToggleExternalContent span {
+          color: #fff;
+      }
+      
+      /* Стили для navbar */
+      .navbar {
+          background-color: rgb(45 81 91 / 61%); /* Синий оттенок, подходящий для iOS */
+          padding: 12px 20px;
+          border-radius: 12px;
+          box-shadow: 0 8px 20px rgba(224, 33, 33, 0.1);
+          transition: background-color 0.3s ease;
+          z-index: 1050; /* Немного ниже, чтобы меню было сверху */
+          position: relative; /* Относительное позиционирование для правильного отображения z-index */
+      }
+      
+      /* Изменение цвета и размера для кнопки-иконки при наведении */
+      .navbar-toggler-icon {
+          background-color: #fff;
+          width: 35px;
+          height: 4px;
+          transition: background-color 0.3s ease;
+          border-radius: 8px;
+      }
+      
+      /* Эффект при наведении на navbar */
+      .navbar:hover {
+          background-color: rgba(0, 102, 204, 1);
+      }
+      
+      /* Эффект при наведении на navbar-toggler */
+      .navbar-toggler:hover .navbar-toggler-icon {
+          background-color: #007bff; /* Ярко-синий для кнопки */
+      }
+      
+      /* Позиционирование для фона */
+      .bg {
+          animation: slide 3s ease-in-out infinite alternate;
+          background-image: linear-gradient(-60deg, #6c3 50%, #09f 50%);
+          bottom: 0;
+          left: -50%;
+          opacity: .5;
+          position: fixed;
+          right: -50%;
+          top: 0;
+          z-index: -1; /* Фон на заднем плане */
+      }
+      
+      .bg2 {
+          animation-direction: alternate-reverse;
+          animation-duration: 4s;
+      }
+      
+      .bg3 {
+          animation-duration: 5s;
+      }
+      
+      .banner {
+          background-color: rgba(255, 255, 255, .8);
+          border-radius: .25em;
+          box-shadow: 0 0 .25em rgba(0, 0, 0, .25);
+          box-sizing: border-box;
+          left: 50%;
+          padding: 10vmin;
+          position: fixed;
+          text-align: center;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          z-index: 1; /* Контент на заднем плане */
+      }
+      
+      .fixed-header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+      }
+
+      .slider {
+        margin: 2em 0;
+      }
+
+      .slider img {
+        height: 400px; /* Установите желаемую высоту */
+        object-fit: cover; /* Сохраните пропорции изображения */
+      }
+
+      .about-us {
+        background-color: #f8f9fa;
+        padding: 2em;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin: 2em 0;
+      }
+
+      .photo-gallery {
+        padding: 2em;
+        margin: 2em 0;
+      }
+
+      .photo-gallery .gallery {
+        display: flex;
+        gap: 10px;
+      }
+
+      .photo-gallery .gallery img {
+        width: 100%;
+        max-width: 300px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .centered {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    .bnt {
+      max-height: 500px; /* Ограничиваем высоту */
+      overflow-y: auto; /* Делаем скролл при необходимости */
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.8); /* Прозрачный фон */
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Легкая тень */
+      backdrop-filter: blur(10px); /* Размытие заднего фона */
+      transition: all 0.3s ease;
+      color: #3498db; /* Смена цвета на синий при наведении */
+    border-color: #2980b9; /* Изменение цвета линии при наведении */
+  }
+  
+  .bnt:hover {
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Усиливаем эффект при наведении */
+  }
+  
+  
+  
+
+    </style>
+
+</head>
+<body>
+
+    <div class="container-fluid">
+        <!-- Левая панель (фиксированная) -->
+        <aside id="leftMenu">
+          <div class="menu-container">
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
+            <div class="menu-label">Меню</div>
+        </div>
+        
+            <div class="logo-container">
+                <img src="{% static 'main/img/init.png' %}" alt="INIT logo" class="img-fluid">
+                <span class="logo-text">Кыргызский государственный </br>
+                  университет им. И. Арабаева </br>
+                  ИНСТИТУТ НОВЫХ ИНФОРМАЦИОННЫХ ТЕХНОЛОГИЙ</span>
+            </div>
+
+
+
+          
+            
+            
+
+
+
+            <div class="social-icons">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </aside>
+
+        <!-- Правая часть контента -->
+        <main>
+          <header class="header fixed-header">
+            <div class="header-container">
+                <a href="{% url 'home' %}" class="logo">
+                    <img src="{% static 'main/img/init.png' %}" alt="Логотип" aria-label="Логотип">
+                </a>
+                <nav class="nav">
+                  
+                    <a href="{% url 'home' %}" class="menu-button" aria-label="Главная">
+                        <i class="fa-solid fa-house"></i> Главная
+                    </a>
+                    
+                    <a href="{% url 'kafedra_home_init' %}" class="menu-button" aria-label="Институт">
+                      <i class="fa-solid fa-landmark"></i> Институт
+                  </a>
+                    
+                    <a href="{% url 'kafedra_home' %}" class="menu-button" aria-label="Кафедра ПИ">
+                        <i class="fa-solid fa-landmark"></i> Кафедра ПИ
+                    </a>
+                   
+                   
+                    <a href="{% url 'kafedra_home_ito' %}" class="menu-button" aria-label="ИТО">
+                      <i class="fa-solid fa-landmark"></i> Кафедра ИТО
+                  </a>
+                  <a href="{% url 'kafedra_home_ospo' %}" class="menu-button" aria-label="ОСПО">
+                    <i class="fa-solid fa-landmark"></i> Отделение СПО
+                </a>
+
+                <a href="{% url 'kafedra_home_od' %}" class="menu-button" aria-label="ОГиЕМД">
+                  <i class="fa-solid fa-landmark"></i> Отделение ГиЕМД
+              </a>
+
+                    
+
+                  </a>
+                    <a href="{% url 'news_home' %}" class="menu-button" aria-label="Новости">
+                        <i class="fa-solid fa-newspaper"></i> Новости
+                    </a>
+                   
+                    
+                   
+                </nav>
+            </div>
+            <div class="pos-f-t">
+              <div class="collapse" id="navbarToggleExternalContent">
+                  <div class="bg-light p-4 rounded shadow">
+                      <h4 class="text-dark">Меню</h4>
+                      <div class="d-flex flex-column">
+                          <a href="{% url 'home' %}" class="nav-link text-dark"><i class="fas fa-home"></i> Главная</a>
+                          <a href="{% url 'kafedra_home' %}" class="nav-link text-dark"><i class="fa-solid fa-landmark"></i> Кафедра ПИ</a>
+                          <a href="{% url 'news_home' %}" class="nav-link text-dark"><i class="fas fa-newspaper"></i> Новости</a>
+                          <a href="#participants" class="nav-link text-dark"><i class="fas fa-users"></i> Участники</a>
+                          <a href="#contact" class="nav-link text-dark"><i class="fas fa-envelope"></i> Контакты</a>
+                      </div>
+                  </div>
+              </div>
+             <nav class="navbar navbar-light bg-light rounded shadow">
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+              </nav> 
+          </div>
+          </header>
+          
+          
+          
+      
+      
+            <div class="content-header">
+                {% block content %}
+         
+                <!-- Ваш контент здесь -->
+                {% endblock %}
+            </div>
+        </main>
+    </div>
+
+    <div class="bg"></div>
+    <div class="bg bg2"></div>
+    <div class="bg bg3"></div>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('leftMenu');
+            const toggleButton = document.querySelector('.menu-toggle i');
+
+            menu.classList.toggle('expanded');
+
+            if (menu.classList.contains('expanded')) {
+                toggleButton.classList.remove('fa-bars');
+                toggleButton.classList.add('fa-chevron-left');
+            } else {
+                toggleButton.classList.remove('fa-chevron-left');
+                toggleButton.classList.add('fa-bars');
+            }
+        }
+
+        function openModal(src) {
+            var modal = document.getElementById("imageModal");
+            var modalImg = document.getElementById("modalImage");
+            modal.style.display = "block";
+            modalImg.src = src;
+        }
+
+        function closeModal() {
+            var modal = document.getElementById("imageModal");
+            modal.style.display = "none";
+        }
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <!-- Внизу вашего шаблона, перед закрывающим </body> -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var elem = document.querySelector('#masonry-gallery');
+            var msnry = new Masonry(elem, {
+                itemSelector: '.gallery-item',
+                columnWidth: '.gallery-item',
+                percentPosition: true
+            });
+        });
+    </script>
+</body>
+</html>

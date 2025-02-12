@@ -1,0 +1,45 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="{% static 'kafedra_init/css/styles_init.css' %}">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="{% static 'ckeditor/ckeditor.js' %}"></script>
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                {% if teacher.photo %}
+                <img src="{{ teacher.photo.url }}" class="card-img" alt="{{ teacher.first_name }} {{ teacher.last_name }}">
+                {% else %}
+                <img src="{% static 'kafedra_init/images/default_teacher.jpg' %}" class="card-img" alt="Default Image">
+                {% endif %}
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h1 class="card-title">{{ teacher.first_name }} {{ teacher.last_name }}</h1>
+                    <h5 class="card-subtitle mb-2 text-muted">{{ teacher.position }}</h5>
+                    <ul class="list-group list-group-flush">
+                        {% if teacher.degree %}
+                        <li class="list-group-item"><strong>Степень:</strong> {{ teacher.degree }}</li>
+                        {% endif %}
+                        {% if teacher.phone_number %}
+                        <li class="list-group-item"><strong>Телефон:</strong> {{ teacher.phone_number }}</li>
+                        {% endif %}
+                        {% if teacher.email %}
+                        <li class="list-group-item"><strong>Email:</strong> <a href="mailto:{{ teacher.email }}">{{ teacher.email }}</a></li>
+                        {% endif %}
+                    </ul>
+                    <br>
+                    <p class="card-text">{{ teacher.bio|safe }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+{% endblock %}

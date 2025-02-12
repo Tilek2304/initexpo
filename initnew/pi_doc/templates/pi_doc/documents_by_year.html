@@ -1,0 +1,14 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block content %}
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'pi_doc/styles.css' %}">
+</head>
+<h1>Documents from {{ year }}</h1>
+<ul class="styled-list">
+    {% for document in documents %}
+        <li class="styled-list-item"><a href="{{ document.file.url }}">{{ document.title }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}

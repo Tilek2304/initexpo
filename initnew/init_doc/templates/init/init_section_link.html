@@ -1,0 +1,3 @@
+{% for sectioninit in sectionsinit %}
+    <a href="{% url 'init_section_detail_view' sectioninit.id %}" class="nav-link">{{ sectioninit.name }}</a>
+{% endfor %}

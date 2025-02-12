@@ -1,0 +1,139 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="{% static 'kafedra_ospo/css/styles_ospo.css' %}">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="{% static 'ckeditor/ckeditor.js' %}"></script>
+<div class="main">
+    <link rel="stylesheet" href="{% static 'news/css/article_detail.css' %}">
+   
+    <div class="content-wrapper">
+        <div class="content-left" style="width: 75%;">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title">{{ about_info.title }}</h1>
+                    {% if about_info.image %}
+                    <img src="{{ about_info.image.url }}" alt="{{ about_info.title }}" class="img-fluid">
+                    {% endif %}
+                    <p class="card-text">{{ about_info.content|safe }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-right fixed" style="width: 25%;">
+            <div class="card mt-4">
+                <div class="card-body text-center">
+                    <img src="{% static 'kafedra_ospo/img/zav_ospo.jpg' %}" alt="Бийбосунов Болот Ильясович" class="img-fluid mt-3" style="border-radius: 15px;">
+                    <h2 class="card-title mt-3">Бийбосунов Болот Ильясович</h2>
+                    <p class="card-text">Заведующий кафедрой</p>
+                    <a href="{% url 'contacts' %}" class="btn btn-secondary">Контакты</a>
+                </div>
+            </div>
+        </div>      
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Фото</th>
+                    <th>Фамилия</th>
+                    <th>Имя</th>
+                    <th>Отчество</th>
+                    <th>Должность</th>
+                    <th>Степень</th>
+                    <th>Номер телефона</th>
+                    <th>Электронная почта</th>
+                    <th>Подробнее</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for teacher in teachers %}
+                <tr>
+                    <td>
+                        {% if teacher.photo %}
+                        <img src="{{ teacher.photo.url }}" alt="{{ teacher.last_name }} {{ teacher.first_name }}" class="teacher-photo">
+                        {% else %}
+                        <img src="{% static 'kafedra_ospo/images/teacher.jpg' %}" alt="{{ teacher.last_name }} {{ teacher.first_name }}" class="teacher-photo">
+                        {% endif %}
+                    </td>
+                    <td>{{ teacher.last_name }}</td>
+                    <td>{{ teacher.first_name }}</td>
+                    <td>{{ teacher.middle_name }}</td>
+                    <td>{{ teacher.position }}</td>
+                    <td>{{ teacher.degree }}</td>
+                    <td>{{ teacher.phone_number }}</td>
+                    <td>{{ teacher.email }}</td>
+                    <td><a href="{% url 'teacher_detail' teacher.id %}" class="btn btn-primary btn-sm">Подробнее</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="pagination">
+            <span class="step-links">
+                {% if teachers.has_previous %}
+                    <a href="?page=1" class="btn btn-secondary">&laquo; первая</a>
+                    <a href="?page={{ teachers.previous_page_number }}" class="btn btn-secondary">предыдущая</a>
+                {% endif %}
+
+                <span class="current">
+                    Страница {{ teachers.number }} из {{ teachers.paginator.num_pages }}.
+                </span>
+
+                {% if teachers.has_next %}
+                    <a href="?page={{ teachers.next_page_number }}" class="btn btn-secondary">следующая</a>
+                    <a href="?page={{ teachers.paginator.num_pages }}" class="btn btn-secondary">последняя &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="text-center my-4 section-header">Документы </h2>
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Документы Отделение среднего профессионального образования </th>
+                            <th>Количество документов</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for sectionospo in sectionsospo %}
+                        <tr>
+                            <td> <a href="{% url 'ospo_section_detail_view' sectionospo.id %}" class="pdf-link">{{ sectionospo.name }}</a></td>
+                            <td class="section-description">{{ sectionospo.pdfdocument_set.count }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="text-center my-4 section-header">Награды кафедры</h2>
+                <div class="gallery">
+                    {% for award in awards %}
+                    <div class="gallery-item">
+                        <img src="{{ award.image.url }}" alt="{{ award.title }}" class="img-fluid">
+                        <p class="gallery-title">{{ award.title }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

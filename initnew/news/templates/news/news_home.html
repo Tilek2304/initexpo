@@ -1,0 +1,61 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Новости</title>
+{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'news/css/news_home.css' %}">
+    <script src="{% static 'news/js/news_home.js' %}"></script>
+
+    <div class="content-header styled-header">
+        <h1>Новости</h1>
+    </div>
+
+    <div class="features">
+        {% if news %}
+            {% for el in news %}
+                <div class="card">
+                    <div class="card-header">
+                        {% if el.image %}
+                            <img src="{{ el.image.url }}" alt="{{ el.title }}">
+                        {% endif %}
+                    </div>
+                    <div class="card-body">
+                        <h3>{{ el.title }}</h3>
+                        <p>{{ el.anons|truncatewords:20 }}</p>
+                        <div class="card-footer">
+                            <a href="{% url 'news_detail_view' el.id %}" class="btn-custom">Подробнее</a> 
+                        </div>
+                        <div class="card-footer-info">
+                            <span class="views-count"><i class="fa-solid fa-eye"></i> {{ el.views }}</span>
+                            <span class="comments-count"><i class="fa-solid fa-comments"></i> {{ el.comments.count }}</span>
+                            <span class="author"><i class="fa-solid fa-user"></i> {{ el.author }}</span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Новостей нет</p>
+        {% endif %}
+    </div>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if news.has_previous %}
+                <a href="?page=1" class="btn-pagination">&laquo; первая</a>
+                <a href="?page={{ news.previous_page_number }}" class="btn-pagination">предыдущая</a>
+            {% endif %}
+
+            <span class="current">
+                Страница {{ news.number }} из {{ news.paginator.num_pages }}.
+            </span>
+
+            {% if news.has_next %}
+                <a href="?page={{ news.next_page_number }}" class="btn-pagination">следующая</a>
+                <a href="?page={{ news.paginator.num_pages }}" class="btn-pagination">последняя &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+{% endblock %}

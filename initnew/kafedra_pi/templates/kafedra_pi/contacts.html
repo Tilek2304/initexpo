@@ -1,0 +1,16 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'kafedra_pi/css/styles.css' %}">
+<script src="{% static 'ckeditor/ckeditor.js' %}"></script>
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-title">{{ contact_info.title }}</h1>
+            <div class="card-text">{{ contact_info.content|safe }}</div>
+        </div>
+    </div>
+</div>
+{% endblock %}

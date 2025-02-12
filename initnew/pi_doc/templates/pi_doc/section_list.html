@@ -1,0 +1,19 @@
+{% load static %}
+
+{% block content %}
+<form method="get" action=".">
+    <label for="year">Выберите год:</label>
+    <select name="year" id="year" onchange="this.form.submit()">
+        {% for year in years %}
+            <option value="{{ year }}" {% if year == selected_year %}selected{% endif %}>{{ year }}</option>
+        {% endfor %}
+    </select>
+</form>
+{% for section in sections %}
+    <div class="col-md-4">
+        <li class="styled-list-item">
+            <a href="{% url 'section_detail_view' section.id %}" class="pdf-link">{{ section.name }}</a>
+        </li>
+    </div>
+{% endfor %}
+{% endblock %}

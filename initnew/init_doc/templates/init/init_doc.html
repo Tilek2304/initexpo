@@ -1,0 +1,15 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+{% block content %}
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'init_doc/styles.css' %}">
+</head>
+<ul class="styled-list">
+    {% for sectioninit in sectionsinit %}
+        <li class="styled-list-item">
+            <a href="{% url 'init_section_detail_view' sectioninit.id %}">{{ sectioninit.name }}</a>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}
+

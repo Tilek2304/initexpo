@@ -1,0 +1,3 @@
+{% for section in sectionsito %}
+    <a href="{% url 'ito_section_detail_view' section.id %}" class="pdf-link">{{ section.name }}</a>
+{% endfor %}

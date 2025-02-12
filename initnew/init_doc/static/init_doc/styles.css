@@ -1,0 +1,244 @@
+/* Общие стили */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: rgba(244, 244, 244, 0.8);
+    color: #333;
+    border-radius: 15px;
+}
+
+h1, h2 {
+    color: #333;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Стили для списка секций */
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+li {
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+li:hover {
+    background-color: #f1f1f1;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Стили для кнопок */
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 0 10px;
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+.button:active {
+    background-color: #004494;
+}
+
+/* Стили для креативного заголовка */
+.creative-header {
+    font-size: 2.5em;
+    color: #007bff;
+    text-align: center;
+    margin-top: 20px;
+    text-shadow: 2px 2px #f4f4f4;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+/* Дизайнерский стиль для заголовка h1 */
+.designer-header {
+    font-family: 'Oswald', serif;
+    font-size: 3em;
+    color: #333;
+    text-align: center;
+    margin-top: 5px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    padding: 5px;
+    border-radius: 10px;
+   
+    border: 2px solid #ffffff;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.designer-header:hover {
+    background-color: #f1f1f1;
+    box-shadow: 0 0 10px rgba(0, 86, 179, 0.5);
+}
+
+/* Подключение шрифта Roboto Slab */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap');
+
+/* Стили для формы фильтрации по годам */
+.filter-form {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.filter-form select {
+    padding: 10px;ы
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    color: #333;
+    transition: border-color 0.3s;
+}
+
+.filter-form select:focus {
+    border-color: #007bff;
+}
+
+.filter-form .btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.filter-form .custom-select {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    color: #333;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.filter-form .custom-select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.filter-form .btn-custom {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.filter-form .btn-custom:hover {
+    background-color: #0056b3;
+    box-shadow: 0 0 10px rgba(0, 86, 179, 0.5);
+}
+
+.filter-form .btn-custom:active {
+    background-color: #004494;
+}
+
+/* Стили для кнопок фильтрации по годам */
+.filter-buttons {
+    margin: 20px 0;
+}
+
+.filter-buttons .btn-custom {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 50px;
+    background-color: #fff;
+    color: #28a745;
+    margin: 5px;
+    border: 2px solid #28a745;
+    transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
+}
+
+.filter-buttons .btn-custom:hover {
+    background-color: #218838;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(33, 136, 56, 0.5);
+}
+
+.filter-buttons .btn-custom:active {
+    background-color: #1e7e34;
+    color: #fff;
+}
+
+.filter-buttons .btn-custom.active {
+    background-color: #218838;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(33, 136, 56, 0.5);
+}
+
+/* Общий стиль для прозрачного фона с изогнутыми углами */
+.container {
+    background-color: rgba(255, 255, 255, 0.322);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px;
+    max-width: 1400px;
+    width: 100%;
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1400px;
+    }
+}
+
+/* Стили для элемента списка PDF */
+.styled-list-item {
+    margin: 10px 0;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    list-style-type: none;
+}
+
+.styled-list-item:hover {
+    background-color: #f1f1f1;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.pdf-link {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.pdf-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}

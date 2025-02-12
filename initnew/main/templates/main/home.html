@@ -1,0 +1,126 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block content %}
+<section class="admission-campaign" style="margin-bottom: 20px;">
+    <div class="carousel-container" style="margin-right: 20px;">
+        <div id="carouselExampleIndicators" class="carousel slide transparent-bg" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                {% for image in slider_images %}
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}" aria-current="true" aria-label="Slide {{ forloop.counter }}"></button>
+                {% endfor %}
+            </div>
+            <div class="carousel-inner rounded">
+                {% for image in slider_images %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    <img src="{{ image.image.url }}" class="d-block w-100 rounded" alt="{{ image.title }}">
+                    <div class="carousel-caption d-md-block bg-dark bg-opacity-50 rounded">
+                        <h5>{{ image.title }}</h5>
+                        <p>{{ image.description }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+    <div class="campaign-content">
+        <h2>Приемная кампания 2025</h2>
+        <p class="headline">Мечтай, учись, твори!</p>
+        <p class="description">
+            Университет Арабаева — один из ведущих технических вузов России, где традиции сочетаются с современными подходами к обучению и исследованию. Здесь формируются лидеры и профессионалы мирового уровня.<br>
+            Присоединяйтесь к сообществу будущих инженеров, ученых и новаторов.
+        </p>
+        <a href="#apply-now" class="cta-button">Поступить</a>
+    </div>
+</section>
+
+<div id="imageModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="modalImage">
+    <a class="prev" onclick="changeImage(-1)">&#10094;</a>
+    <a class="next" onclick="changeImage(1)">&#10095;</a>
+</div>
+
+<div class="about-us">
+    <h2>О нас</h2>
+    <div class="about-content">
+        {% if about.image %}
+        <img src="{{ about.image.url }}" alt="{{ about.title }}" class="about-image">
+        {% else %}
+        <div>Отладка: изображение отсутствует</div>
+        {% endif %}
+        <div class="about-text">
+            <h3>{{ about.title }}</h3>
+            <p>{{ about.content }}</p>
+            <a href="{% url 'about' %}" class="btn btn-secondary">Узнать больше</a>
+        </div>
+    </div>
+</div>
+
+<div class="departments">
+    <h2>Наши кафедры</h2>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="department-card">
+                <h3>Кафедра "Прикладная информатика"</h3>
+                <p>Описание кафедры "Прикладная информатика".</p>
+                <a href="#" class="btn btn-secondary">Узнать больше</a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="department-card">
+                <h3>Кафедра "Информационных технологий в образовании"</h3>
+                <p>Описание кафедры "Информационных технологий в образовании".</p>
+                <a href="#" class="btn btn-secondary">Узнать больше</a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="department-card">
+                <h3>Отделение среднего профессионального образования</h3>
+                <p>Описание отделения среднего профессионального образования.</p>
+                <a href="#" class="btn btn-secondary">Узнать больше</a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="department-card">
+                <h3>Отделение гуманитарных и естественно-математических дисциплин ОСПО ИНИТ</h3>
+                <p>Описание отделения гуманитарных и естественно-математических дисциплин ОСПО ИНИТ.</p>
+                <a href="#" class="btn btn-secondary">Узнать больше</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="news-section">
+    <h2>Новости</h2>
+    <div class="news-list">
+        {% for article in articles %}
+        <div class="news-item">
+            <h3>{{ article.title }}</h3>
+            <p>{{ article.anons }}</p>
+            <a href="{% url 'news_detail' article.id %}">Читать далее</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="photo-gallery full-width">
+    <h2>Фотогалерея</h2>
+    <div class="gallery" id="masonry-gallery">
+        {% for image in gallery_images %}
+        <div class="gallery-item">
+            <img src="{{ image.image.url }}" alt="{{ image.title }}" onclick="openModal('{{ image.image.url }}', {{ forloop.counter0 }})">
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
